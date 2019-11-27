@@ -19,7 +19,7 @@ Content-Encoding也只支持identity;
 ## 用于测试的静态文件
 
 是以前写的小玩意儿;
-![Q9Ue0O.png](https://s2.ax1x.com/2019/11/27/Q9Ue0O.png)
+!(https://s2.ax1x.com/2019/11/27/Q9Ue0O.png)
 
 ## 展望
 
