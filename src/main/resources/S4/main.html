@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh_cn">
+<head>
+	<meta charset="utf-8">
+    <title>风流第三次作业_王若禹</title>
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css_pc_log_in.css">
+	<script src="jquery.min.js"></script>
+</head>
+<body>
+<script src="main.js"></script>
+    <div class="wrapper" style="width:900px">
+		<div>
+			<div class="heads">
+				<h1 class="welcome" id="visit" style="top:10px;">
+                欢迎！
+				</h1>
+				<h3 id="userInfo">
+                风流新媒体·技术部第三次作业·王若禹
+				</h3> 
+			</div>
+			<button type="button" class="cancel button" id="logout" style="width:140px;margin:40px 30px 0 20px;">注销</button>
+		</div>
+		<div class="tableContainer">
+		<div>
+		<div style="width:700px;margin:0 0 0 0;float:left;">
+			<i class="material-icons" style="color:dodgerblue;">phone</i>
+            <input class="input" id="phone" placeholder="Tel" type="number">
+            <span class="underline phone"></span>
+			<p class="phone" id="errPhone">请输入有效11位电话号码</p>
+        </div>
+		<button type="button" class="submit button" id="submit" style="width:140px;margin:0 10px 20px 0;">查询</button>
+		</div>
+			<table class="table table-hover table-striped table-sm table-condensed">
+				<thead>
+					<tr>
+						<th>省份</th>
+						<th>城市</th>
+						<th>区号</th>
+						<th>邮编</th>
+						<th>运营商</th>
+					</tr>
+				</thead>
+				<tbody id="tableBody">
+				</tbody>
+			</table>
+		</div>
+	</div>			
+</body>
+</html>
