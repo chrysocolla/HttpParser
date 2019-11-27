@@ -188,7 +188,7 @@ public class HttpParser implements Runnable {
         private String method;                  // 请求方法 GET/POST/PUT/DELETE/OPTION...
         private String uri;                     // 请求的uri
         private String version;                 // http版本
-        private String message;                 // 请求体
+        private byte[] message;                 // 请求体
         private Map<String, String> headers;    // 请求头
         private StringBuilder rawRequest;
 
@@ -213,7 +213,7 @@ public class HttpParser implements Runnable {
             return uri;
         }
 
-        public String getMessage() {
+        public byte[] getMessage() {
             return message;
         }
 
@@ -306,19 +306,23 @@ public class HttpParser implements Runnable {
                     this.rawRequest.append("\r\n").append(new String(message));
                 } // endregion
                 // region Set message
-                this.message = new String(message); // endregion
+                this.message = message; // endregion
             } else if (!this.headers.getOrDefault("Connection", "Keep-Alive").equals("Keep-Alive")) {
                 // region Read bytes when ready
-                List<Byte> message = new ArrayList<>();
+                List<Byte> ListMessage = new ArrayList<>();
+                byte[] message;
                 int ch;
                 while ((ch = HttpParser.this.bytesInput.read()) != -1) {
-                    message.add((byte) ch);
+                    ListMessage.add((byte) ch);
                     if (this.keepRaw) {
                         this.rawRequest.append("\r\n").append((byte) ch);
                     }
                 } // endregion
-                // region Set message
-                this.message = message.toString(); // endregion
+                message = new byte[ListMessage.toArray().length];
+                for (int i = 0; i < ListMessage.toArray().length; i++) {
+                    message[i] = ListMessage.get(i);
+                }
+                this.message = message; // endregion
             } else {
                 // region Deal with potential Not Implemented
                 Response badRes = new Response(
