@@ -1,3 +1,5 @@
+package wry;
+
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
@@ -23,10 +25,10 @@ public class SyncNonblockingServerHandler implements Runnable {
             selector = Selector.open();                                                 //创建选择器
             ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();       //打开监听通道
             serverSocketChannel.configureBlocking(false);                               //开启非阻塞模式
-            serverSocketChannel.socket().bind(new InetSocketAddress(port), 1024);//绑定端口 backlog设为1024
+            serverSocketChannel.socket().bind(new InetSocketAddress(port), 1024);                                    //绑定端口 backlog设为1024
             serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);             //监听客户端连接请求
             started = true;                                                             //标记服务器已开启
-            System.out.println("SyncBlockingServer initiated. Listening at: " + port);
+            System.out.println("SyncNonBlockingServer initiated. Listening at: " + port);
         } catch (IOException e) {
             e.printStackTrace();
             System.exit(1);
@@ -39,10 +41,10 @@ public class SyncNonblockingServerHandler implements Runnable {
 
     @Override
     public void run() {
-        while (started) {                                           //循环遍历selector
+        while (started) {                                           // 循环遍历selector
             try {
-                selector.select(1000);                            // selector每隔1s被唤醒一次
-//              selector.select();                                  // 阻塞
+                selector.select(1000);                              // selector每隔1s被唤醒一次
+                // selector.select();                               // 阻塞
                 Set<SelectionKey> keys = selector.selectedKeys();
                 Iterator<SelectionKey> it = keys.iterator();
                 SelectionKey key;
@@ -102,12 +104,12 @@ public class SyncNonblockingServerHandler implements Runnable {
                     //将缓冲区可读字节数组复制到新建的数组中
                     buffer.get(bytes);
                     String expression = new String(bytes, StandardCharsets.UTF_8);
-                    System.out.println("服务器收到消息：" + expression);
+                    System.out.println("服务器收到消息：\n" + expression);
                     //发送应答消息
                     doWrite(sc, expression);
                 }
                 //没有读取到字节 忽略
-//				else if(readBytes==0);
+				// else if(readBytes==0);
                 //链路已经关闭，释放资源
                 else if (readBytes < 0) {
                     key.cancel();

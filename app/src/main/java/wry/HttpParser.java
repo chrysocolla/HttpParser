@@ -1,3 +1,5 @@
+package wry;
+
 import java.io.*;
 import org.thymeleaf.*;
 import org.thymeleaf.templateresolver.FileTemplateResolver;
@@ -95,11 +97,11 @@ public class HttpParser implements Runnable {
                         this.getHandler(req, res);
                         break;
                     case "HEAD":
-//                        break;
+                        // break;
                     case "PUT":
-//                        break;
+                        // break;
                     case "POST":
-//                        break;
+                        // break;
                     case "DELETE":
                         break;
                     case "TRACE":
@@ -150,8 +152,8 @@ public class HttpParser implements Runnable {
 
     private void getHandler(Request req, Response res) throws IOException {
         try {
-            URL url = new URL("http://" + req.getHeaders().getOrDefault("Host", "127.0.1.1:8080") + req.getUri());
-            Path path = Paths.get("/home/wry/IdeaProjects/nsync_nonblock_net/src/main/resources/S4" + url.getPath());
+            URL url = new URL("http://" + req.getHeaders().getOrDefault("Host", "localhost:8080") + req.getUri());
+            Path path = Paths.get("." + url.getPath());
             res.setHeaders("Content-Type", Files.probeContentType(path));
             byte[] binary = Files.readAllBytes(path);
             res.setMessage(binary);

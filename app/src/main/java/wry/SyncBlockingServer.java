@@ -1,3 +1,5 @@
+package wry;
+
 import java.io.IOException;                 // IOExceptions
 import java.net.UnknownHostException;       // IOExceptions
 import java.net.InetAddress;                // InetAddress
@@ -31,7 +33,7 @@ class SyncBlockingServer {
             while (true) {
                 Socket socket = server.accept();
                 executorService.execute(new HttpParser(socket)); // N:M
-//                new Thread(new HttpParser(socket)).start();      // 1:1
+                // new Thread(new HttpParser(socket)).start();   // 1:1
             }
         } finally {
             if (server != null) {
